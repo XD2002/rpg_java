@@ -7,6 +7,11 @@ import character.*;
 import javax.swing.*;
 
 public class WisShrine implements IEncounter {
+    /**
+     * start the encounter
+     * @param player the player who engages in the encounter
+     * @param frame the frame of the GUI the encounter has to be displayed on
+     */
     @Override
     public void engage(Player player, JFrame frame){
         Scanner sc = new Scanner(System.in);

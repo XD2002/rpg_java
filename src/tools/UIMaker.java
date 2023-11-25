@@ -11,6 +11,12 @@ import java.util.List;
 public final class UIMaker {
 
     public static JPanel itemPanel;
+
+    /**
+     * makes the statistics panel
+     * @param player the player object
+     * @param panel the panel to draw on
+     */
     public static void makeStatPanel(Player player, JPanel panel){
         panel.removeAll();
         panel.setLayout(new GridLayout(7,1));
@@ -23,12 +29,22 @@ public final class UIMaker {
         panel.add(new JLabel("WIS: " + player.getWis()));
     }
 
+    /**
+     * makes the image panel
+     * @param player the player object
+     * @param panel the panel to draw on
+     */
     public static void makeImagePanel(Player player, JPanel panel){
         panel.removeAll();
         panel.setLayout(new GridLayout(1,1));
         panel.add(new JLabel(player.getName() + " IMAGE"));
     }
 
+    /**
+     * makes the big inventory panel
+     * @param player the player object
+     * @param panel the panel to draw on
+     */
     public static void makeBigInventoryPanel(Player player, JPanel panel){
         panel.removeAll();
 
@@ -54,6 +70,11 @@ public final class UIMaker {
         panel.add(invPanel);
     }
 
+    /**
+     * makes the smaller inventory panel
+     * @param player the player object
+     * @param panel the panel to draw on
+     */
     private static void makeInventoryPanel(Player player, JPanel panel, JPanel itemPanel){
         panel.removeAll();
         panel.setLayout(new GridLayout(5, 3));
@@ -74,6 +95,11 @@ public final class UIMaker {
         }
     }
 
+    /**
+     * adds an item to the item panel
+     * @param item the item to add
+     * @param itemPanel the item panel
+     */
     private static void showItem(IItem item, JPanel itemPanel){
         itemPanel.removeAll();
         itemPanel.revalidate();
