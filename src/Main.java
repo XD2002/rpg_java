@@ -1,4 +1,7 @@
 import character.Player;
+import encounters.AEncounter;
+import encounters.SwordInStone;
+import encounters.WisShrine;
 import items.consumables.TomaatGroenteSoep;
 import items.equipment.WoodenSword;
 import tools.UIMaker;
@@ -9,7 +12,6 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args){
-
         Player player = new Player("Doddy", 6, 6, 6, 6, 6,  6);
 
         player.addItem(new WoodenSword());
@@ -47,8 +49,11 @@ public class Main {
         mainPane.add(characterPane, BorderLayout.WEST);
 
         JPanel gamePane = new JPanel();
-        gamePane.setLayout(new GridLayout(1,1));
-        gamePane.add(new JButton("GAME"));
+        gamePane.setLayout(new GridLayout(11,1));
+        /*
+        JPanel encounterPanel = new JPanel();
+        gamePane.add(encounterPanel);*/
+
         mainPane.add(gamePane, BorderLayout.CENTER);
 
         JPanel inventoryPane = new JPanel();
@@ -64,5 +69,8 @@ public class Main {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        AEncounter encounter = new WisShrine();
+        encounter.engage(player,gamePane,stats,inventoryPane);
     }
 }

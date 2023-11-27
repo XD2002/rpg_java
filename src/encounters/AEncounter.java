@@ -1,10 +1,17 @@
 package encounters;
 
-import character.*;
+import character.Player;
 
 import javax.swing.*;
 
-public interface IEncounter {
+public abstract class AEncounter implements IEncounter{
+
+    boolean[] actionsPerformed;
+
+    public AEncounter(){
+        actionsPerformed = new boolean[11];
+    }
+
     /**
      * start the encounter
      * @param player the player who engages in the encounter
@@ -12,5 +19,6 @@ public interface IEncounter {
      * @param stats the stats panel, used to update it's content when needed
      * @param inventory the inventory panel, used to update it's content when needed
      */
-    public void engage(Player player, JPanel panel, JPanel stats, JPanel inventory);
+    @Override
+    public abstract void engage(Player player, JPanel panel, JPanel stats, JPanel inventory);
 }
