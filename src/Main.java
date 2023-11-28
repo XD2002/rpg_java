@@ -4,14 +4,37 @@ import encounters.SwordInStone;
 import encounters.WisShrine;
 import items.consumables.TomaatGroenteSoep;
 import items.equipment.WoodenSword;
+import structures.RandomPriorityArray;
 import tools.UIMaker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args){
+
+        RandomPriorityArray<String> rpa = new RandomPriorityArray<>(10);
+        rpa.add("Winter", 0);
+        rpa.add("Yoohyeon", 8);
+
+        int winter = 0;
+        int yoohyeon = 0;
+        for(int i=0; i<10000; i++){
+            String n = rpa.getRandom();
+            if(n.equals("Winter")){
+                winter++;
+            }
+            if(n.equals("Yoohyeon")){
+                yoohyeon++;
+            }
+        }
+
+        System.out.println("Winter: " + winter);
+        System.out.println("Yoohyeon: " + yoohyeon);
+
+        /*
         Player player = new Player("Doddy", 6, 6, 6, 6, 6,  6);
 
         player.addItem(new WoodenSword());
@@ -50,9 +73,9 @@ public class Main {
 
         JPanel gamePane = new JPanel();
         gamePane.setLayout(new GridLayout(11,1));
-        /*
-        JPanel encounterPanel = new JPanel();
-        gamePane.add(encounterPanel);*/
+
+        //JPanel encounterPanel = new JPanel();
+        //gamePane.add(encounterPanel);
 
         mainPane.add(gamePane, BorderLayout.CENTER);
 
@@ -71,6 +94,6 @@ public class Main {
         frame.setVisible(true);
 
         AEncounter encounter = new WisShrine();
-        encounter.engage(player,gamePane,stats,inventoryPane);
+        encounter.engage(player,gamePane,stats,inventoryPane);*/
     }
 }
