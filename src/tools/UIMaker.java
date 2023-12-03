@@ -66,6 +66,7 @@ public final class UIMaker {
         c.gridy = 1;
         JPanel invPanel = new JPanel();
         makeInventoryPanel(player, invPanel, itemPanel);
+        showItem(player.getInventory().get(0), itemPanel);
         gbl.setConstraints(invPanel, c);
         panel.add(invPanel);
     }

@@ -1,6 +1,7 @@
 package encounters;
 
 import character.*;
+import structures.RandomPriorityArray;
 
 import javax.swing.*;
 
@@ -12,5 +13,9 @@ public interface IEncounter {
      * @param stats the stats panel, used to update it's content when needed
      * @param inventory the inventory panel, used to update it's content when needed
      */
-    public void engage(Player player, JPanel panel, JPanel stats, JPanel inventory);
+    void engage(Player player, JPanel panel, JPanel stats, JPanel inventory, RandomPriorityArray<IEncounter> rpa);
+
+    void run(Player player, JPanel panel, JPanel stats, JPanel inventory);
+
+    void addNew(RandomPriorityArray<IEncounter> rpa);
 }

@@ -2,6 +2,7 @@ package encounters;
 
 import character.Player;
 import items.equipment.StoneSword;
+import structures.RandomPriorityArray;
 import tools.Dice;
 import tools.UIMaker;
 
@@ -9,16 +10,13 @@ import javax.swing.*;
 import java.util.Scanner;
 
 public class SwordInStone extends AEncounter{
-    /**
-     * start the encounter
-     * @param player the player who engages in the encounter
-     * @param panel the panel of the GUI the encounter has to be displayed on
-     * @param stats the stats panel, used to update it's content when needed
-     * @param inventory the inventory panel, used to update it's content when needed
-     */
+
+    public SwordInStone(int numStages) {
+        super(numStages);
+    }
+
     @Override
-    public void engage(Player player, JPanel panel, JPanel stats, JPanel inventory) {
-        panel.removeAll();
+    public void run(Player player, JPanel panel, JPanel stats, JPanel inventory) {
         panel.add(new JTextArea("You come across a stone with a sword stuck in it."));
         JButton pullBtn = new JButton("Pull it out (strength roll 7)");
         pullBtn.addActionListener(e -> pull(player, panel, inventory));
@@ -50,5 +48,10 @@ public class SwordInStone extends AEncounter{
             panel.revalidate();
             actionsPerformed[0] = true;
         }
+    }
+
+    @Override
+    public void addNew(RandomPriorityArray<IEncounter> rpa){
+        rpa.add(new SwordInStone(1),   0);
     }
 }

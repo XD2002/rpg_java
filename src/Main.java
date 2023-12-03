@@ -1,40 +1,22 @@
 import character.Player;
-import encounters.AEncounter;
-import encounters.SwordInStone;
-import encounters.WisShrine;
+import encounters.IEncounter;
 import items.consumables.TomaatGroenteSoep;
 import items.equipment.WoodenSword;
 import structures.RandomPriorityArray;
+import tools.RPAFiller;
 import tools.UIMaker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Main {
 
+    static boolean block;
+
+    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+
     public static void main(String[] args){
 
-        RandomPriorityArray<String> rpa = new RandomPriorityArray<>(10);
-        rpa.add("Winter", 0);
-        rpa.add("Yoohyeon", 8);
-
-        int winter = 0;
-        int yoohyeon = 0;
-        for(int i=0; i<10000; i++){
-            String n = rpa.getRandom();
-            if(n.equals("Winter")){
-                winter++;
-            }
-            if(n.equals("Yoohyeon")){
-                yoohyeon++;
-            }
-        }
-
-        System.out.println("Winter: " + winter);
-        System.out.println("Yoohyeon: " + yoohyeon);
-
-        /*
         Player player = new Player("Doddy", 6, 6, 6, 6, 6,  6);
 
         player.addItem(new WoodenSword());
@@ -42,6 +24,9 @@ public class Main {
 
         JFrame frame = new JFrame("RPG");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        device.setFullScreenWindow(frame);
+        frame.repaint();
+        frame.revalidate();
         frame.setSize(400,200);
 
         JPanel mainPane = new JPanel();
@@ -74,9 +59,6 @@ public class Main {
         JPanel gamePane = new JPanel();
         gamePane.setLayout(new GridLayout(11,1));
 
-        //JPanel encounterPanel = new JPanel();
-        //gamePane.add(encounterPanel);
-
         mainPane.add(gamePane, BorderLayout.CENTER);
 
         JPanel inventoryPane = new JPanel();
@@ -84,16 +66,35 @@ public class Main {
         mainPane.add(inventoryPane, BorderLayout.EAST);
 
         frame.add(mainPane);
-
+        /*
         frame.setMinimumSize(new Dimension(1300,700));
-        //frame.setMaximumSize(new Dimension(1300,700));
-        //frame.setSize(1300,700);
         frame.setPreferredSize(new Dimension(1300, 700));
         frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(null);*/
         frame.setVisible(true);
 
-        AEncounter encounter = new WisShrine();
-        encounter.engage(player,gamePane,stats,inventoryPane);*/
+        RandomPriorityArray<IEncounter> rpa = RPAFiller.getDefault();
+
+        while(!rpa.isEmpty()){
+            block = true;
+            IEncounter encounter = rpa.getRandomAndDelete();
+            encounter.engage(player,gamePane,stats,inventoryPane,rpa);
+
+            JButton nextBtn = new JButton("Next");
+            nextBtn.addActionListener(e -> next());
+            gamePane.add(nextBtn);
+            gamePane.revalidate();
+            while(block){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    private static void next(){
+        block = false;
     }
 }
